@@ -30,6 +30,7 @@ def convert_text_to_speech(message):
   voice_rachel ="21m00Tcm4TlvDq8ikWAM"
 
   #constructing header and endpoints
+  print("eleven labs " + ELEVEN_LABS_API_KEY + "!")
 
   headers = {
     "xi-api-key": ELEVEN_LABS_API_KEY,
@@ -42,6 +43,7 @@ def convert_text_to_speech(message):
   try:
    response = requests.post(endpoint, json=body, headers=headers)
   except Exception as e:
+   print(e)
    return
   
   #Handle Response
