@@ -1,5 +1,7 @@
 import requests
 from decouple import config
+from elevenlabs import Voice, VoiceSettings, generate
+
 
 ELEVEN_LABS_API_KEY = config("ELEVEN_LABS_API_KEY")
 
@@ -7,14 +9,15 @@ ELEVEN_LABS_API_KEY = config("ELEVEN_LABS_API_KEY")
 #Convert text to speech
 
 def convert_text_to_speech(message):
-#Define Data Body
-#  body ={
-#     "text": message,
-#     "voice_settings":{
-#      "similarity_boost": 0
-#     }
-#   }
- 
+  audio = generate(
+      text=message,
+      voice=Voice(
+          voice_id='21m00Tcm4TlvDq8ikWAM',
+          settings=VoiceSettings(stability=0.71, similarity_boost=0.5, style=0.0, use_speaker_boost=True)
+      )
+  )
+  return audio
+
   body = {
   "text": message,
   "model_id": "eleven_monolingual_v1",

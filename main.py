@@ -22,7 +22,8 @@ origins = [
     "http://localhost:4173",
     "http://localhost:3000",
     "http://localhost:8000",
-    "https://assistant-backend.onrender.com"
+    "https://assistant-backend.onrender.com",
+    "https://demo-assistant.onrender.com",
 ]
 #Cors- Middleware
 app.add_middleware(
@@ -54,15 +55,15 @@ async def reset_conversation():
 @app.post("/post-audio")
 
 #async def get_audio():
-async def post_audio(file:UploadFile = File(...)):
+async def post_audio():
    
    #Get saved audio
-   #audio_input = open("voice.mp3", "rb")
+   audio_input = open("voice.mp3", "rb")
 
    #Save file from Frontend
-   with open(file.filename, "wb") as buffer:
-       buffer.write(file.file.read())
-   audio_input = open(file.filename, "rb")
+   #with open(file.filename, "wb") as buffer:
+   #    buffer.write(file.file.read())
+   #audio_input = open(file.filename, "rb")
    #Decode Audio
    message_decoded = convert_audio_to_text(audio_input)
 
@@ -98,4 +99,6 @@ async def post_audio(file:UploadFile = File(...)):
    return StreamingResponse(iterfile(), media_type ="application/octet-stream")   
 
 
-  
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
