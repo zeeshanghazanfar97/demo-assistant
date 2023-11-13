@@ -16,6 +16,7 @@ def convert_text_to_speech(message):
           settings=VoiceSettings(stability=0.71, similarity_boost=0.5, style=0.0, use_speaker_boost=True)
       )
   )
+  print("Audio generated")
   return audio
 
   body = {
